@@ -5,9 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>bar</title>
     <link rel="stylesheet" href="css.css">
+<style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .pdf-container {
+      width: 100%;
+      height: 100vh; /* 100% от высоты экрана */
+      overflow: hidden;
+    }
+
+    .pdf-frame {
+      width: 100%;
+      height: 100%;
+      border: none;
+      object-fit: contain; /* Чтобы всё влезало */
+    }
+  </style>
 </head>
 <body>
-<iframe src="menu.pdf" type="application/pdf" width="100%" height="1200px">
-</iframe>
+  <div class="pdf-container">
+    <iframe class="pdf-frame" src="menu.pdf"></iframe>
+  </div>
 </body>
 </html>
