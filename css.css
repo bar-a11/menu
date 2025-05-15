@@ -1,6 +1,6 @@
 .img{
-   width: 100vw;
-      height: 100vh;
-      object-fit: cover;
+    width: 100vw;      /* Растягиваем на всю ширину окна */
+      height: 100vh;     /* Растягиваем на всю высоту окна */
+      object-fit: fill;  /* Искажаем при необходимости, чтобы точно заняло всё */
       display: block; 
 }
