@@ -7,7 +7,63 @@
     <link rel="stylesheet" href="css.css">
 </head>
 <body>
-<iframe src="menu.pdf" width="100%" height="100%"></iframe>
-   
+<div id="pdf-container">
+        <div id="pdf-viewer"></div>
+    </div>
+
+    <script>
+        const pdfUrl = 'menu.pdf';
+        const container = document.getElementById('pdf-container');
+
+        // Загрузка PDF
+        pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
+            pdf.getPage(1).then(function(page) {
+                // Рассчитываем масштаб по ширине контейнера
+                const viewportWidth = container.clientWidth;
+                const pageWidth = page.getViewport({ scale: 1 }).width;
+                const scale = viewportWidth / pageWidth;
+
+                const viewport = page.getViewport({ scale });
+
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+
+                page.render(renderContext);
+                document.getElementById('pdf-viewer').appendChild(canvas);
+            });
+        });
+
+        // Реактивное изменение размера при повороте экрана
+        window.addEventListener('resize', function() {
+            const viewer = document.getElementById('pdf-viewer');
+            viewer.innerHTML = ''; // Очищаем и перерисовываем
+            pdfjsLib.getDocument(pdfUrl).promise.then(function(pdf) {
+                pdf.getPage(1).then(function(page) {
+                    const newScale = container.clientWidth / page.getViewport({ scale: 1 }).width;
+                    const viewport = page.getViewport({ scale: newScale });
+
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+
+                    page.render(renderContext);
+                    viewer.appendChild(canvas);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
