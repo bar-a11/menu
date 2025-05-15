@@ -1,6 +1,19 @@
+  html, body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      width: 100vw;
+      background-image: url('2.webp');
+      background-repeat: repeat;
+      background-size: auto; /* Можно auto или 100px 100px для точного размера */
+      overflow: hidden;
+    }
 .img{
-    width: 100vw;      /* Растягиваем на всю ширину окна */
-      height: 100vh;     /* Растягиваем на всю высоту окна */
-      object-fit: fill;  /* Искажаем при необходимости, чтобы точно заняло всё */
-      display: block; 
+position: fixed;
+      top: 0;
+      left: 0;
+      width: 100px;
+      height: 100px;
+      object-fit: fill; /* Растягивает на весь экран без сохранения пропорций */
+      z-index: 1;
 }
